@@ -7,14 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business.Interfaces;
 
 namespace Finance
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        private readonly ICustomerManager _customerManager;
+
+        public Form1(ICustomerManager customerManager)
         {
+            _customerManager = customerManager;
             InitializeComponent();
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
