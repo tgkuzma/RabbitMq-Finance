@@ -3,7 +3,7 @@ using Models;
 
 namespace Data
 {
-    public class DataContextInitializer : DropCreateDatabaseAlways<DataContext>
+    public class DataContextInitializer : DropCreateDatabaseIfModelChanges<DataContext>
     {
         protected override void Seed(DataContext context)
         {

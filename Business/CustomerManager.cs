@@ -7,38 +7,38 @@ namespace Business
 {
     public class CustomerManager : ICustomerManager
     {
-        private readonly ICustomerRepository _customerCustomerRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public CustomerManager(ICustomerRepository customerCustomerRepository)
+        public CustomerManager(ICustomerRepository customerRepository)
         {
-            _customerCustomerRepository = customerCustomerRepository;
+            _customerRepository = customerRepository;
         }
 
         public void AddCustomer(Customer customerToAdd)
         {
-            _customerCustomerRepository.Add(customerToAdd);
-            _customerCustomerRepository.SaveChanges();
+            _customerRepository.Add(customerToAdd);
+            _customerRepository.SaveChanges();
         }
 
         public void DeleteCustomer(Customer customerToDelete)
         {
-            _customerCustomerRepository.Delete(customerToDelete);
-            _customerCustomerRepository.SaveChanges();
+            _customerRepository.Delete(customerToDelete);
+            _customerRepository.SaveChanges();
         }
 
         public List<Customer> GetAllCustomers()
         {
-            return _customerCustomerRepository.GetAll();
+            return _customerRepository.GetAll();
         }
 
         public Customer GetCustomerById(int id)
         {
-            return _customerCustomerRepository.GetById(id);
+            return _customerRepository.GetById(id);
         }
 
         public void UpdateCustomer()
         {
-            _customerCustomerRepository.SaveChanges();
+            _customerRepository.SaveChanges();
         }
     }
 }
