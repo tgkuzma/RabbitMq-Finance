@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business.Interfaces;
+using Integrations;
 using Models;
+using RabbitMQ.Client;
 
 namespace Finance
 {
@@ -43,18 +46,26 @@ namespace Finance
 
         private void Test()
         {
-            _customerManager.AddCustomer(new Customer
-            {
-                BillingAddress = new Address
-                {
-                    City = "13",
-                    State = "AZ",
-                    Street = "Hello",
-                    ZipCode = "FFF"
-                },
-                FirstName = "T-Dawg",
-                LastName = "ldjsf"
-            });
+            //The following should be injected
+            //var factory = new ConnectionFactory() { HostName = "localhost" };
+            //var connection = factory.CreateConnection();
+            //var messagingManager = new MessagingManager(connection);
+            
+            //messagingManager.PublishCommand("test", DateTime.Now.ToString("hh:mm:ss t z"));
+
+
+            //_customerManager.AddCustomer(new Customer
+            //{
+            //    BillingAddress = new Address
+            //    {
+            //        City = "13",
+            //        State = "AZ",
+            //        Street = "Hello",
+            //        ZipCode = "FFF"
+            //    },
+            //    FirstName = "T-Dawg",
+            //    LastName = "ldjsf"
+            //});
         }
     }
 }

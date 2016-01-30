@@ -26,10 +26,8 @@ namespace Data.Repositories
             foreach (var entry in itemsToSend)
             {
                 var message = JsonConvert.SerializeObject(entry.Value);
-                IntegrationManager.SendMessage(entry.Key, "Customer", message);
+                //MessagingManager.SendMessage(entry.Key, "Customer", message);
             }
-
-            var xxx = "";
         }
     }
 }
