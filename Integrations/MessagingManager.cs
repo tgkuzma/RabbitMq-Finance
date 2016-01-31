@@ -8,7 +8,7 @@ namespace Integrations
     public class MessagingManager
     {
         private readonly string _hostName;
-        private static IModel _model;
+        private readonly IModel _model;
 
         public MessagingManager(string hostName)
         {
@@ -18,11 +18,6 @@ namespace Integrations
             var factory = new ConnectionFactory() { HostName = _hostName };
             var connection = factory.CreateConnection();
             _model = connection.CreateModel();
-        }
-
-        public static IModel GetModel()
-        {
-            return _model;
         }
 
         public void CreateQueue(string queueName)
@@ -38,7 +33,7 @@ namespace Integrations
         public void PublishCommand(string queueName, string message)
         {
             var body = Encoding.UTF8.GetBytes(message);
-
+            
             _model.BasicPublish(string.Empty, queueName, null, body);
         }
 

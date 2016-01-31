@@ -23,10 +23,14 @@ namespace Data.Repositories
 
         private static async Task SendToBus(Dictionary<string, object> itemsToSend)
         {
+            var messenger = new MessagingManager("localhost");
             foreach (var entry in itemsToSend)
             {
+                if (entry.Key.ToLower() == "unchanged") continue;
+                var queueName = "Finance.Customer." + entry.Key;
+                messenger.CreateQueue(queueName);
                 var message = JsonConvert.SerializeObject(entry.Value);
-                //MessagingManager.SendMessage(entry.Key, "Customer", message);
+                messenger.PublishCommand(queueName, message);
             }
         }
     }

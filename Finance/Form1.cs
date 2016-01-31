@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Entity.Infrastructure;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business.Interfaces;
-using Integrations;
 using Models;
-using RabbitMQ.Client;
 
 namespace Finance
 {
     public partial class Form1 : Form
     {
         private readonly ICustomerManager _customerManager;
+        private List<Customer> _customersToUpdate;
+        private List<Customer> _customersToDelete;
 
         public Form1(ICustomerManager customerManager)
         {
@@ -27,45 +21,61 @@ namespace Finance
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            Test();
-            //_customerManager.AddCustomer(new Customer
-            //{
-            //    BillingAddress = new Address
-            //    {
-            //        City = txtCreateCity.Text,
-            //        State = txtCreateState.Text,
-            //        Street = txtCreateStreetAddress.Text,
-            //        ZipCode = txtCreateZipCode.Text
-            //    },
-            //    FirstName = txtCreateFirstName.Text,
-            //    LastName = txtCreateLastName.Text
-            //});
+            _customerManager.AddCustomer(new Customer
+            {
+                BillingAddress = new Address
+                {
+                    City = txtCreateCity.Text,
+                    State = txtCreateState.Text,
+                    Street = txtCreateStreetAddress.Text,
+                    ZipCode = txtCreateZipCode.Text
+                },
+                FirstName = txtCreateFirstName.Text,
+                LastName = txtCreateLastName.Text
+            });
 
-            MessageBox.Show("");
+            LoadCustomersToDelete();
+            LoadCustomersToUpdate();
         }
 
-        private void Test()
+        private void Form1_Load(object sender, EventArgs e)
         {
-            //The following should be injected
-            //var factory = new ConnectionFactory() { HostName = "localhost" };
-            //var connection = factory.CreateConnection();
-            //var messagingManager = new MessagingManager(connection);
-            
-            //messagingManager.PublishCommand("test", DateTime.Now.ToString("hh:mm:ss t z"));
+            LoadCustomersToUpdate();
+            LoadCustomersToDelete();
+        }
 
+        private void LoadCustomersToDelete()
+        {
+            _customersToDelete = _customerManager.GetAllCustomers();
+            var customer = _customersToDelete.FirstOrDefault();
+            HydrateDeleteGroup(customer);
+        }
 
-            //_customerManager.AddCustomer(new Customer
-            //{
-            //    BillingAddress = new Address
-            //    {
-            //        City = "13",
-            //        State = "AZ",
-            //        Street = "Hello",
-            //        ZipCode = "FFF"
-            //    },
-            //    FirstName = "T-Dawg",
-            //    LastName = "ldjsf"
-            //});
+        private void HydrateDeleteGroup(Customer customer)
+        {
+            txtDeleteAddress.Text = customer.BillingAddress.Street;
+            txtDeleteCity.Text = customer.BillingAddress.City;
+            txtDeleteFirstName.Text = customer.FirstName;
+            txtDeleteLastName.Text = customer.LastName;
+            txtDeleteState.Text = customer.BillingAddress.State;
+            txtDeleteZipCode.Text = customer.BillingAddress.ZipCode;
+        }
+
+        private void HydrateUpdateGroup(Customer customer)
+        {
+            txtUpdateAddress.Text = customer.BillingAddress.Street;
+            txtUpdateCity.Text = customer.BillingAddress.City;
+            txtUpdateFirstName.Text = customer.FirstName;
+            txtUpdateLastName.Text = customer.LastName;
+            txtUpdateState.Text = customer.BillingAddress.State;
+            txtUpdateZipCode.Text = customer.BillingAddress.ZipCode;
+        }
+
+        private void LoadCustomersToUpdate()
+        {
+            _customersToUpdate = _customerManager.GetAllCustomers();
+            var customer = _customersToUpdate.FirstOrDefault();
+            HydrateUpdateGroup(customer);
         }
     }
 }
