@@ -9,6 +9,6 @@ namespace Business.Interfaces
         Customer GetCustomerById(int id);
         void AddCustomer(Customer customerToAdd);
         void DeleteCustomer(Customer customerToDelete);
-        void UpdateCustomer();
+        void UpdateCustomer(bool isFromIntegrations = false);
     }
 }

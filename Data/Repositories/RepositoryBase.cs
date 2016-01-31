@@ -41,17 +41,20 @@ namespace Data.Repositories
             _context.Set<T>().Remove(entity);
         }
 
-        public void SaveChanges()
+        public void SaveChanges(bool isFromIntegrations)
         {
             var itemsToSend = _context.ChangeTracker.Entries()
                 .Where(e => e.State != EntityState.Unchanged)
                 .ToDictionary(e => e.State.ToString(), e => e.Entity);
 
             _context.SaveChanges();
+
             var changesSavedArgs = new ChangesSavedEventArgs
             {
                 Entries = itemsToSend
             };
+
+            if(!isFromIntegrations)
             _repositoryEvents.OnChangesSaved(changesSavedArgs);
         }
     }

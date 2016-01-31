@@ -9,6 +9,6 @@ namespace Models.Interfaces
         Customer GetById(int id);
         void Add(Customer entity);
         void Delete(Customer entity);
-        void SaveChanges();
+        void SaveChanges(bool isFromIntegrations = false);
     }
 }

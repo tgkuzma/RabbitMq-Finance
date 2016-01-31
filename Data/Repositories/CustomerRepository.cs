@@ -27,11 +27,30 @@ namespace Data.Repositories
             foreach (var entry in itemsToSend)
             {
                 if (entry.Key.ToLower() == "unchanged") continue;
+
                 var queueName = "Finance.Customer." + entry.Key;
+
                 messenger.CreateQueue(queueName);
-                var message = JsonConvert.SerializeObject(entry.Value);
+
+                var sharedCustomer = GetSharedCustomer(entry.Value as Customer);
+
+                var message = JsonConvert.SerializeObject(sharedCustomer);
+
                 messenger.PublishCommand(queueName, message);
             }
+        }
+
+        private static Models.Shared.Customer GetSharedCustomer(Customer customer)
+        {
+            var sharedCustomer = new Models.Shared.Customer
+            {
+                Id = customer.MasterId,
+                IntegrationObjectId = customer.Id,
+                BillingAddress = customer.BillingAddress,
+                FullName = customer.FirstName + " " + customer.LastName
+            };
+
+            return sharedCustomer;
         }
     }
 }

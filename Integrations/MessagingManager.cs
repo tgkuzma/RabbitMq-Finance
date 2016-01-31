@@ -7,15 +7,12 @@ namespace Integrations
 {
     public class MessagingManager
     {
-        private readonly string _hostName;
         private readonly IModel _model;
 
         public MessagingManager(string hostName)
         {
-            _hostName = hostName;
-
             if (_model != null) return;
-            var factory = new ConnectionFactory() { HostName = _hostName };
+            var factory = new ConnectionFactory() { HostName = hostName };
             var connection = factory.CreateConnection();
             _model = connection.CreateModel();
         }

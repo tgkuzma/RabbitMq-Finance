@@ -18,6 +18,7 @@ namespace Finance
         private static void Main()
         {
             var kernel = InitializeDependencies();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(kernel.Get<Form1>());

@@ -13,9 +13,6 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            //var factory = new ConnectionFactory() { HostName = "localhost" };
-            
-            //var connection = factory.CreateConnection();
             var messagingManager = new MessagingManager("localhost");
 
             var handler = new EventHandler<BasicDeliverEventArgs>(
@@ -25,9 +22,9 @@ namespace TestConsole
                     Console.WriteLine(msg);
                 });
 
-            messagingManager.Subscribe("Finance.Customer.Added", handler);
-            messagingManager.Subscribe("Finance.Customer.Deleted", handler);
-            messagingManager.Subscribe("Finance.Customer.Modified", handler);
+            messagingManager.Subscribe("Shared.Customer.Added", handler);
+            messagingManager.Subscribe("Shared.Customer.Deleted", handler);
+            messagingManager.Subscribe("Shared.Customer.Modified", handler);
 
             Console.Read();
         }

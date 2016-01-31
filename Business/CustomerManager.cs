@@ -36,9 +36,9 @@ namespace Business
             return _customerRepository.GetById(id);
         }
 
-        public void UpdateCustomer()
+        public void UpdateCustomer(bool isFromIntegrations)
         {
-            _customerRepository.SaveChanges();
+            _customerRepository.SaveChanges(isFromIntegrations);
         }
     }
 }
