@@ -7,8 +7,8 @@ namespace Business.Interfaces
     {
         List<Customer> GetAllCustomers();
         Customer GetCustomerById(int id);
-        void AddCustomer(Customer customerToAdd);
-        void DeleteCustomer(Customer customerToDelete);
+        void AddCustomer(Customer customerToAdd, bool isFromIntegrations = false);
+        void DeleteCustomer(Customer customerToDelete, bool isFromIntegrations = false);
         void UpdateCustomer(bool isFromIntegrations = false);
     }
 }

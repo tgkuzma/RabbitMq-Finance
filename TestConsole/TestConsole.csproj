@@ -55,6 +55,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj">
+      <Project>{5BDA86EE-0BCF-4C54-A840-B4913F497702}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Integrations\Integrations.csproj">
       <Project>{8692DA0D-B46A-4E84-AAE3-C4460EF54391}</Project>
       <Name>Integrations</Name>

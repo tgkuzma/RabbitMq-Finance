@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business.Interfaces;
 using Ninject;
@@ -29,6 +26,8 @@ namespace Finance
             IKernel kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
 
+            kernel.Get<TestConsole.Program>();
+            kernel.Get<Integrations.ReceiveingEvents.SharedIntegrationEvents>();
             kernel.Get<ICustomerManager>().GetAllCustomers();
 
             return kernel;

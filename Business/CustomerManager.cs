@@ -14,16 +14,16 @@ namespace Business
             _customerRepository = customerRepository;
         }
 
-        public void AddCustomer(Customer customerToAdd)
+        public void AddCustomer(Customer customerToAdd, bool isFromIntegrations = false)
         {
             _customerRepository.Add(customerToAdd);
-            _customerRepository.SaveChanges();
+            _customerRepository.SaveChanges(isFromIntegrations);
         }
 
-        public void DeleteCustomer(Customer customerToDelete)
+        public void DeleteCustomer(Customer customerToDelete, bool isFromIntegrations = false)
         {
             _customerRepository.Delete(customerToDelete);
-            _customerRepository.SaveChanges();
+            _customerRepository.SaveChanges(isFromIntegrations);
         }
 
         public List<Customer> GetAllCustomers()
