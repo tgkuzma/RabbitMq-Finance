@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Interfaces;
@@ -43,7 +44,8 @@ namespace Data.Repositories
         public void SaveChanges()
         {
             var itemsToSend = _context.ChangeTracker.Entries()
-                                .ToDictionary(entry => entry.State.ToString(), entry => entry.Entity);
+                .Where(e => e.State != EntityState.Unchanged)
+                .ToDictionary(e => e.State.ToString(), e => e.Entity);
 
             _context.SaveChanges();
             var changesSavedArgs = new ChangesSavedEventArgs

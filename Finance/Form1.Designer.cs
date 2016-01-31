@@ -43,6 +43,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCreate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblUpdateId = new System.Windows.Forms.Label();
+            this.btnUpdatePrevious = new System.Windows.Forms.Button();
+            this.btnUpdateNext = new System.Windows.Forms.Button();
             this.txtUpdateZipCode = new System.Windows.Forms.TextBox();
             this.txtUpdateState = new System.Windows.Forms.TextBox();
             this.txtUpdateCity = new System.Windows.Forms.TextBox();
@@ -56,9 +59,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnUpdateNext = new System.Windows.Forms.Button();
-            this.btnUpdatePrevious = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblDeleteId = new System.Windows.Forms.Label();
             this.btnDeletePrevious = new System.Windows.Forms.Button();
             this.btnDeleteNext = new System.Windows.Forms.Button();
             this.txtDeleteZipCode = new System.Windows.Forms.TextBox();
@@ -224,6 +226,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblUpdateId);
             this.groupBox2.Controls.Add(this.btnUpdatePrevious);
             this.groupBox2.Controls.Add(this.btnUpdateNext);
             this.groupBox2.Controls.Add(this.txtUpdateZipCode);
@@ -247,6 +250,38 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Update";
+            // 
+            // lblUpdateId
+            // 
+            this.lblUpdateId.AutoSize = true;
+            this.lblUpdateId.Location = new System.Drawing.Point(20, 294);
+            this.lblUpdateId.Name = "lblUpdateId";
+            this.lblUpdateId.Size = new System.Drawing.Size(24, 20);
+            this.lblUpdateId.TabIndex = 13;
+            this.lblUpdateId.Text = "Id";
+            this.lblUpdateId.Visible = false;
+            // 
+            // btnUpdatePrevious
+            // 
+            this.btnUpdatePrevious.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
+            this.btnUpdatePrevious.Location = new System.Drawing.Point(69, 230);
+            this.btnUpdatePrevious.Name = "btnUpdatePrevious";
+            this.btnUpdatePrevious.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdatePrevious.TabIndex = 3;
+            this.btnUpdatePrevious.Text = "<<";
+            this.btnUpdatePrevious.UseVisualStyleBackColor = true;
+            this.btnUpdatePrevious.Click += new System.EventHandler(this.btnUpdatePrevious_Click);
+            // 
+            // btnUpdateNext
+            // 
+            this.btnUpdateNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
+            this.btnUpdateNext.Location = new System.Drawing.Point(164, 230);
+            this.btnUpdateNext.Name = "btnUpdateNext";
+            this.btnUpdateNext.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdateNext.TabIndex = 2;
+            this.btnUpdateNext.Text = ">>";
+            this.btnUpdateNext.UseVisualStyleBackColor = true;
+            this.btnUpdateNext.Click += new System.EventHandler(this.btnUpdateNext_Click);
             // 
             // txtUpdateZipCode
             // 
@@ -365,29 +400,11 @@
             this.btnUpdate.TabIndex = 0;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdateNext
-            // 
-            this.btnUpdateNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.btnUpdateNext.Location = new System.Drawing.Point(164, 230);
-            this.btnUpdateNext.Name = "btnUpdateNext";
-            this.btnUpdateNext.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdateNext.TabIndex = 2;
-            this.btnUpdateNext.Text = ">>";
-            this.btnUpdateNext.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdatePrevious
-            // 
-            this.btnUpdatePrevious.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.btnUpdatePrevious.Location = new System.Drawing.Point(69, 230);
-            this.btnUpdatePrevious.Name = "btnUpdatePrevious";
-            this.btnUpdatePrevious.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdatePrevious.TabIndex = 3;
-            this.btnUpdatePrevious.Text = "<<";
-            this.btnUpdatePrevious.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lblDeleteId);
             this.groupBox3.Controls.Add(this.btnDeletePrevious);
             this.groupBox3.Controls.Add(this.btnDeleteNext);
             this.groupBox3.Controls.Add(this.txtDeleteZipCode);
@@ -412,6 +429,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Delete";
             // 
+            // lblDeleteId
+            // 
+            this.lblDeleteId.AutoSize = true;
+            this.lblDeleteId.Location = new System.Drawing.Point(16, 292);
+            this.lblDeleteId.Name = "lblDeleteId";
+            this.lblDeleteId.Size = new System.Drawing.Size(24, 20);
+            this.lblDeleteId.TabIndex = 14;
+            this.lblDeleteId.Text = "Id";
+            this.lblDeleteId.Visible = false;
+            // 
             // btnDeletePrevious
             // 
             this.btnDeletePrevious.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
@@ -421,6 +448,7 @@
             this.btnDeletePrevious.TabIndex = 3;
             this.btnDeletePrevious.Text = "<<";
             this.btnDeletePrevious.UseVisualStyleBackColor = true;
+            this.btnDeletePrevious.Click += new System.EventHandler(this.btnDeletePrevious_Click);
             // 
             // btnDeleteNext
             // 
@@ -431,6 +459,7 @@
             this.btnDeleteNext.TabIndex = 2;
             this.btnDeleteNext.Text = ">>";
             this.btnDeleteNext.UseVisualStyleBackColor = true;
+            this.btnDeleteNext.Click += new System.EventHandler(this.btnDeleteNext_Click);
             // 
             // txtDeleteZipCode
             // 
@@ -549,6 +578,7 @@
             this.btnDelete.TabIndex = 0;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // Form1
             // 
@@ -619,6 +649,8 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Label lblUpdateId;
+        private System.Windows.Forms.Label lblDeleteId;
     }
 }
 

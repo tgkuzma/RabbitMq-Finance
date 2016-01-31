@@ -59,6 +59,7 @@ namespace Finance
             txtDeleteLastName.Text = customer.LastName;
             txtDeleteState.Text = customer.BillingAddress.State;
             txtDeleteZipCode.Text = customer.BillingAddress.ZipCode;
+            lblDeleteId.Text = customer.Id.ToString();
         }
 
         private void HydrateUpdateGroup(Customer customer)
@@ -69,6 +70,7 @@ namespace Finance
             txtUpdateLastName.Text = customer.LastName;
             txtUpdateState.Text = customer.BillingAddress.State;
             txtUpdateZipCode.Text = customer.BillingAddress.ZipCode;
+            lblUpdateId.Text = customer.Id.ToString();
         }
 
         private void LoadCustomersToUpdate()
@@ -76,6 +78,69 @@ namespace Finance
             _customersToUpdate = _customerManager.GetAllCustomers();
             var customer = _customersToUpdate.FirstOrDefault();
             HydrateUpdateGroup(customer);
+        }
+
+        private void btnUpdateNext_Click(object sender, EventArgs e)
+        {
+            var customer = _customersToUpdate.FirstOrDefault(i => i.Id > Convert.ToInt32(lblUpdateId.Text));
+            if (customer != null)
+            {
+                HydrateUpdateGroup(customer);
+            }
+        }
+
+        private void btnUpdatePrevious_Click(object sender, EventArgs e)
+        {
+            var customer = _customersToUpdate.LastOrDefault(i => i.Id < Convert.ToInt32(lblUpdateId.Text));
+            if (customer != null)
+            {
+                HydrateUpdateGroup(customer);
+            }
+        }
+
+        private void btnDeleteNext_Click(object sender, EventArgs e)
+        {
+            var customer = _customersToDelete.FirstOrDefault(i => i.Id > Convert.ToInt32(lblDeleteId.Text));
+            if (customer != null)
+            {
+                HydrateDeleteGroup(customer);
+            }
+        }
+
+        private void btnDeletePrevious_Click(object sender, EventArgs e)
+        {
+            var customer = _customersToDelete.LastOrDefault(i => i.Id < Convert.ToInt32(lblDeleteId.Text));
+            if (customer != null)
+            {
+                HydrateDeleteGroup(customer);
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            var customerToUpdate = _customersToUpdate.FirstOrDefault(i => i.Id == Convert.ToInt32(lblUpdateId.Text));
+
+             customerToUpdate.BillingAddress.Street = txtUpdateAddress.Text;
+             customerToUpdate.BillingAddress.City = txtUpdateCity.Text;
+             customerToUpdate.FirstName= txtUpdateFirstName.Text;
+             customerToUpdate.LastName = txtUpdateLastName.Text;
+             customerToUpdate.BillingAddress.State = txtUpdateState.Text;
+             customerToUpdate.BillingAddress.ZipCode = txtUpdateZipCode.Text;
+
+            _customerManager.UpdateCustomer();
+
+            LoadCustomersToUpdate();
+            LoadCustomersToDelete();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var customerToDelete = _customersToDelete.FirstOrDefault(i => i.Id == Convert.ToInt32(lblDeleteId.Text));
+            _customerManager.DeleteCustomer(customerToDelete);
+
+            LoadCustomersToUpdate();
+            LoadCustomersToDelete();
+
         }
     }
 }

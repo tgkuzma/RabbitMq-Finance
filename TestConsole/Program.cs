@@ -25,7 +25,9 @@ namespace TestConsole
                     Console.WriteLine(msg);
                 });
 
+            messagingManager.Subscribe("Finance.Customer.Added", handler);
             messagingManager.Subscribe("Finance.Customer.Deleted", handler);
+            messagingManager.Subscribe("Finance.Customer.Modified", handler);
 
             Console.Read();
         }
