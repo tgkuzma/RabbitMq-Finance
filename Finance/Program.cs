@@ -26,9 +26,11 @@ namespace Finance
             IKernel kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
 
-            kernel.Get<TestConsole.Program>();
+            
             kernel.Get<Integrations.ReceiveingEvents.SharedIntegrationEvents>();
             kernel.Get<ICustomerManager>().GetAllCustomers();
+
+            kernel.Get<TestConsole.Program>();
 
             return kernel;
         }

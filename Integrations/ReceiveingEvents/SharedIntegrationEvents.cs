@@ -65,7 +65,7 @@ namespace Integrations.ReceiveingEvents
 
         private void AddCustomer(SharedCustomer sharedCustomer)
         {
-            var customer = new Models.Customer
+            var customer = new Customer
             {
                 BillingAddress = sharedCustomer.BillingAddress,
                 FirstName = sharedCustomer.FullName.Split(Convert.ToChar(" "))[0],

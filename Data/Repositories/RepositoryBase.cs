@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using Data.Interfaces;
 
 namespace Data.Repositories
@@ -15,10 +14,6 @@ namespace Data.Repositories
         {
             _context = context;
             _repositoryEvents = repositoryEvents;
-        }
-
-        public RepositoryBase()
-        {
         }
 
         public List<T> GetAll()
@@ -54,8 +49,12 @@ namespace Data.Repositories
                 Entries = itemsToSend
             };
 
-            if(!isFromIntegrations)
-            _repositoryEvents.OnChangesSaved(changesSavedArgs);
+            if (!isFromIntegrations)
+            {
+                _repositoryEvents.OnChangesSaved(changesSavedArgs);
+            }
+
+           var xxx = _context.Customers.ToList();
         }
     }
 }

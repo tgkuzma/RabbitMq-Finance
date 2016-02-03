@@ -19,6 +19,12 @@ namespace Finance
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            LoadCustomersToUpdate();
+            LoadCustomersToDelete();
+        }
+
         private void btnCreate_Click(object sender, EventArgs e)
         {
             _customerManager.AddCustomer(new Customer
@@ -33,15 +39,6 @@ namespace Finance
                 FirstName = txtCreateFirstName.Text,
                 LastName = txtCreateLastName.Text
             });
-
-            LoadCustomersToDelete();
-            LoadCustomersToUpdate();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            LoadCustomersToUpdate();
-            LoadCustomersToDelete();
         }
 
         private void LoadCustomersToDelete()
@@ -128,15 +125,22 @@ namespace Finance
              customerToUpdate.BillingAddress.ZipCode = txtUpdateZipCode.Text;
 
             _customerManager.UpdateCustomer();
-
-            LoadCustomersToUpdate();
-            LoadCustomersToDelete();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             var customerToDelete = _customersToDelete.FirstOrDefault(i => i.Id == Convert.ToInt32(lblDeleteId.Text));
             _customerManager.DeleteCustomer(customerToDelete);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            txtCreateCity.Text = "";
+            txtCreateFirstName.Text = "";
+            txtCreateLastName.Text = "";
+            txtCreateState.Text = "";
+            txtCreateStreetAddress.Text = "";
+            txtCreateZipCode.Text = "";
 
             LoadCustomersToUpdate();
             LoadCustomersToDelete();
